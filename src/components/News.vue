@@ -60,6 +60,7 @@ export default {
 .image {
   width: 30%;
   margin-block: auto;
+  padding-left: 12px;
 }
 
 img {
