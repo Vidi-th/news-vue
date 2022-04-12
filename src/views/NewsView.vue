@@ -17,5 +17,9 @@ export default {
 </script>
 
 <style>
-
+.news:before, .news:after {
+    display: block;
+    content: "";
+    clear: both;
+  }
 </style>

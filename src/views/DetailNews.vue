@@ -4,9 +4,15 @@
         <div v-if="news">
             <img :src="news.urlToImage">
             <h1>{{ news.title }}</h1>
-            <p>{{ news.author }}</p>
-            <p>{{ news.publishedAt }}</p>
-            <p>{{ news.desc }}</p>
+            <div id="keterangan">
+                <p>{{ news.author }}</p>
+                <p>{{ news.publishedAt }}</p>
+            </div>
+            <p>{{ news.description }}</p>
+            <div id="link">
+                Lanjutan baca terdapat di link:
+                <a :href=news.url>Sini</a>
+            </div>
         </div>
     </div>
 </template>
@@ -28,5 +34,26 @@ export default {
 </script>
 
 <style scoped>
+img {
+    width: 100%;
+}
 
+#keterangan {
+    display: flex;
+    place-content: space-between;
+    margin: 0 12px;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-align: left;
+}
+
+#link {
+    text-align: left;
+}
 </style>

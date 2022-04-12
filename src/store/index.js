@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState  = createPersistedState({
-    paths: [],
+    paths: ["newsAPI"],
 });
 
 export default new Vuex.Store({
