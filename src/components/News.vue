@@ -1,10 +1,15 @@
 <template>
     <div>
-        <li v-for="(newsList,index) in news" :key=index>
+    <span v-if="errorMessage">Gagal ambil data</span>
+
+    <li v-for="(newsList,index) in news" :key=index>
+        <img :src="newsList.urlToImage">
+        <div>
             {{ newsList.author }}<br>
             {{ newsList.title }}<br>
             {{ newsList.publishedAt }}<br><br>
-        </li>
+        </div>
+    </li>
     </div>
 </template>
 
@@ -16,12 +21,30 @@ export default {
         return this.$store.state.newsAPI;
         }
     },
+    errorMessage() {
+      if (this.$store.state.news.error !== "") {
+        return true
+      }
+      return false
+    },
     mounted () {
         this.$store.dispatch('fetchNewsList');
-    }
-}
+    },
+};
+
 </script>
 
 <style scoped>
+ul {
+  text-align: left;
+}
+
+img {
+  max-width: 200px;
+}
+
+li {
+  margin: 50px 0;
+}
 
 </style>
