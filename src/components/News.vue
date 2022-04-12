@@ -6,7 +6,9 @@
         <img :src="newsList.urlToImage">
         <div>
             {{ newsList.author }}<br>
+            <router-link :to="{ name: 'Detail', params: { title: newsList.title } }">
             {{ newsList.title }}<br>
+            </router-link>
             {{ newsList.publishedAt }}<br><br>
         </div>
     </li>
@@ -17,15 +19,15 @@
 export default {
     name:"News",
     computed: {
-        news() {
-        return this.$store.state.newsAPI;
+      news() {
+      return this.$store.state.newsAPI;
+      },
+      errorMessage() {
+        if (this.$store.state.error !== "") {
+          return true
         }
-    },
-    errorMessage() {
-      if (this.$store.state.news.error !== "") {
-        return true
-      }
-      return false
+        return false
+      },
     },
     mounted () {
         this.$store.dispatch('fetchNewsList');

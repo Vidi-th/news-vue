@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState  = createPersistedState({
-    paths: ["newsAPI"],
+    paths: [],
 });
 
 export default new Vuex.Store({
@@ -13,6 +13,7 @@ export default new Vuex.Store({
     state:{
         newsAPI: [],
         error: "",
+        title:"",
     },
     mutations:{
         setNews(state, param) {
@@ -39,6 +40,8 @@ export default new Vuex.Store({
         },
     },
     getters:{
-
+        news: state => title => {
+            return state.newsAPI.find(news => news.title === title);
+        }
     },
 })

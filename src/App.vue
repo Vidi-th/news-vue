@@ -1,19 +1,15 @@
 <template>
   <div id="app">
-  <news-view/>
+  <router-view />
   </div>
 </template>
 
 <script>
-import NewsView from '@/views/NewsView.vue'
 
 export default {
   name: 'App',
-  components: {
-    NewsView,
-  }
+
 }
-    NewsView
 </script>
 
 <style>
