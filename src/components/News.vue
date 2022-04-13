@@ -48,13 +48,26 @@ export default {
   text-align: left;
 }
 
-.article li {
-  width: 48%;
-  padding: 12px;
-  border-radius: 4px;
-  display: block;
-  background-color: white;
-  cursor: pointer;
+@media only screen and (min-width: 1024px){
+  .article li {
+    width: 48%;
+    padding: 12px;
+    border-radius: 4px;
+    display: block;
+    background-color: white;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 1024px){
+  .article li {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    display: block;
+    background-color: white;
+    cursor: pointer;
+  }
 }
 
 .image {

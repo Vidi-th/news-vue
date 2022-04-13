@@ -22,4 +22,9 @@ export default {
     content: "";
     clear: both;
   }
+
+h1 {
+    text-align: center;
+    margin:10px
+}
 </style>
