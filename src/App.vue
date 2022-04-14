@@ -1,23 +1,6 @@
 <template>
   <v-app id ="app">
-    <v-app-bar
-      app
-      color="#a953d4"
-      dark
-    >
-      <v-app-bar-nav-icon 
-        @click.stop="drawer = !drawer">
-      </v-app-bar-nav-icon>
-
-      <v-toolbar-title>My News</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-    </v-app-bar>
+    
     
     <v-navigation-drawer
       v-model="drawer"
@@ -35,27 +18,34 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
+          <v-list-item v-for="(item, index) in items" :key=index @click="category(item)">
+            <v-list-item-title> {{ item }} </v-list-item-title>
           </v-list-item>
 
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
+    <v-app-bar
+      app
+      color="#a953d4"
+      dark
+    >
+      <v-app-bar-nav-icon 
+        @click.stop="drawer = !drawer">
+      </v-app-bar-nav-icon>
 
+      <v-toolbar-title>My News</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-text-field v-model="searchText"></v-text-field>
+      <v-btn icon @click="search(searchText)">
+          <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+    </v-app-bar>
+    
     <v-main>
       <router-view/>
     </v-main>
@@ -68,14 +58,27 @@ export default {
   name: 'App',
 
   data: () => ({
-      drawer: true,
+      searchText:"",
+      items: ["general", "business", "sport", "entertainment", "health"],
+      drawer: false,
       group: null,
     }),
-
-    watch: {
-      group () {
-        this.drawer = false
-      },
+  
+  methods: {
+    category(param) {
+      return this.$store.dispatch('updateNewsList', param);
     },
+
+    search(param) {
+      this.searchText =""
+      return this.$store.dispatch('searchNewsList', param);
+    }
+  },
+
+  watch: {
+    group () {
+      this.drawer = false
+    },
+  },
 };
 </script>

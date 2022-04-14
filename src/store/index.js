@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState  = createPersistedState({
-    paths: ["newsAPI"],
+    paths: ["newsAPI", "kategori"],
 });
 
 export default new Vuex.Store({
@@ -14,20 +14,33 @@ export default new Vuex.Store({
         newsAPI: [],
         error: "",
         title:"",
+        kategori:"sports",
+        searchQ:"",
     },
     mutations:{
+        setKategori(state, param) {
+            state.kategori = param;
+        },
         setNews(state, param) {
             state.newsAPI = param;
         },
         setError(state,param) {
             state.error = param;
         },
+        setSearch(state, param) {
+            state.searchQ = param;
+        },
     },
     actions:{
         fetchNewsList(store) {
             axios
             .get(
-                'https://newsapi.org/v2/everything?q=bitcoin&apiKey=217211cdb0054b4fb35c4574ddf62239'
+                'https://newsapi.org/v2/top-headlines?country=id&category=' + 
+                store.state.kategori + 
+                '&q=' + 
+                store.state.searchQ + 
+                '&apiKey=217211cdb0054b4fb35c4574ddf62239'
+                
             )
             .then((response) => {
                 console.log("response: ", response);
@@ -38,6 +51,17 @@ export default new Vuex.Store({
                 store.commit("setError", error.msg);
             });
         },
+
+        updateNewsList(store, payload) {
+            store.commit('setKategori', payload);
+            store.dispatch('fetchNewsList');
+        },
+
+        searchNewsList(store, payload) {
+            store.commit('setSearch', payload);
+            store.dispatch('fetchNewsList');
+            store.commit('setSearch', "");
+        }
     },
     getters:{
         news: state => title => {
