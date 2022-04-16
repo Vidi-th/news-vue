@@ -7,6 +7,7 @@
           <div class ="image">
             <img :src="newsList.urlToImage">
           </div>
+          
           <div class="desc">
               <span id="author"> {{ newsList.author }} </span><br>
               <span id="title"><router-link :to="{ name: 'Detail', params: { title: newsList.title } }">

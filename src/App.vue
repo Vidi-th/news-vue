@@ -5,8 +5,8 @@
     <v-navigation-drawer
       v-model="drawer"
       absolute
-      bottom
-      temporary
+      app
+      clipped
       color="#460b63"
       dark
     >
@@ -29,6 +29,8 @@
     <v-app-bar
       app
       color="#a953d4"
+      clipped-left
+    
       dark
     >
       <v-app-bar-nav-icon 
@@ -38,9 +40,13 @@
       <v-toolbar-title>My News</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <v-text-field v-model="searchText"></v-text-field>
-      <v-btn icon @click="search(searchText)">
+      <label v-if="searchMode">
+        <v-text-field v-model="searchText"></v-text-field>
+      </label>
+      <v-btn v-if="!searchMode" icon @click="editMode">
+          <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-btn v-if="searchMode" icon @click="search(searchText)">
           <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -59,18 +65,24 @@ export default {
 
   data: () => ({
       searchText:"",
-      items: ["general", "business", "sport", "entertainment", "health"],
+      items: ["general", "business", "sport", "entertainment", "health", "science", "technology"],
       drawer: false,
       group: null,
+      searchMode: false,
     }),
   
   methods: {
+    editMode() {
+       this.searchMode = !this.searchMode;
+    },
+
     category(param) {
       return this.$store.dispatch('updateNewsList', param);
     },
 
     search(param) {
-      this.searchText =""
+      this.searchText ="";
+      this.editMode();
       return this.$store.dispatch('searchNewsList', param);
     }
   },
